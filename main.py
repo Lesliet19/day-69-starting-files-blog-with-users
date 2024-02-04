@@ -11,7 +11,8 @@ from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 # Import your forms from the forms.py
 from forms import CreatePostForm, RegisterForm, LoginForm, admin_required, CommentForm
-
+#create environmental varaibles
+import os
 
 '''
 Make sure the required packages are installed: 
@@ -26,8 +27,13 @@ pip3 install -r requirements.txt
 This will install the packages from the requirements.txt for this project.
 '''
 
+
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'thisisasecret'
+
+# Access environment variable in Flask app config
+app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY', 'default_secret_key')
+
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 
@@ -44,7 +50,9 @@ def load_user(user_id):
 # CREATE DATABASE
 class Base(DeclarativeBase):
     pass
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+# environmental variable
+app.config['SQlALCHEMY_DATABASE_URI'] = os.environ.get('SQL_KEY')
+
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
