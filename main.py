@@ -14,20 +14,6 @@ from forms import CreatePostForm, RegisterForm, LoginForm, admin_required, Comme
 #create environmental varaibles
 import os
 
-'''
-Make sure the required packages are installed: 
-Open the Terminal in PyCharm (bottom left). 
-
-On Windows type:
-python -m pip install -r requirements.txt
-
-On MacOS type:
-pip3 install -r requirements.txt
-
-This will install the packages from the requirements.txt for this project.
-'''
-
-
 
 app = Flask(__name__)
 
@@ -51,7 +37,9 @@ def load_user(user_id):
 class Base(DeclarativeBase):
     pass
 # environmental variable
-app.config['SQlALCHEMY_DATABASE_URI'] = os.environ.get('SQL_KEY')
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQL_KEY')
 
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
