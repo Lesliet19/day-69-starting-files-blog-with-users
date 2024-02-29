@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timdelta 
 from flask import Flask, abort, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
@@ -19,6 +19,9 @@ app = Flask(__name__)
 
 # Access environment variable in Flask app config
 app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY', 'default_secret_key')
+
+# Set the session duration to 1 week
+app.config['REMEMBER_COOKIE_DURATION'] = timedelta(weeks=1)
 
 ckeditor = CKEditor(app)
 Bootstrap5(app)
